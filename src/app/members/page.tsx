@@ -1,7 +1,11 @@
 import React from "react";
 
 const MembersPage = () => {
-  return <div className="p-10 text-white">Members Page</div>;
+  return (
+    <section>
+      <h2>MembersPage</h2>
+    </section>
+  );
 };
 
 export default MembersPage;

@@ -1,10 +1,14 @@
-import { Button } from "@nextui-org/react";
-import { FaUser } from "react-icons/fa6";
+import { auth } from "@/auth";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
+  console.log(session);
   return (
-    <div className="p-10 text-white">
+    <section>
       <h2>Home Page</h2>
-    </div>
+      <p>{session?.user?.name}</p>
+      <p>{session?.user?.email}</p>
+      <p>{session?.user?.id}</p>
+    </section>
   );
 }
