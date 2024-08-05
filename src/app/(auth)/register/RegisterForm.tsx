@@ -28,7 +28,6 @@ const RegisterForm = () => {
   const onSubmit = async (data: RegisterSchema) => {
     const result = await registerUser(data);
     if (result.status === "success") {
-      console.log("success", result.data);
       router.push("/login");
     } else {
       if (Array.isArray(result.error)) {
@@ -43,7 +42,6 @@ const RegisterForm = () => {
       } else {
         setError("root.serverError", { message: result.error });
       }
-      console.log("error", result.error);
     }
   };
 

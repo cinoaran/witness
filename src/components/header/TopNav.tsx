@@ -16,6 +16,9 @@ import HeaderLogo from "../logo/HeaderLogo";
 import UserMenu from "../user/UserMenu";
 import UserAuthLinks from "../user/UserAuthLinks";
 import { Session } from "next-auth";
+import { MdOutlineHome } from "react-icons/md";
+import { FaList, FaUsers } from "react-icons/fa";
+import { BsChatRightDots } from "react-icons/bs";
 
 type Props = {
   user: Session["user"];
@@ -25,44 +28,58 @@ const TopNav = ({ user }: Props) => {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
+    {
+      name: "Home",
+      href: `/`,
+      icon: <MdOutlineHome size={18} />,
+    },
+    {
+      name: "Members",
+      href: "/members",
+      icon: <FaUsers size={18} />,
+    },
+    {
+      name: "Lists",
+      href: "/lists",
+      icon: <FaList size={18} />,
+    },
+    {
+      name: "Chats",
+      href: "/chats",
+      icon: <BsChatRightDots size={18} />,
+    },
   ];
   return (
-    <header className="sticky top-0 z-50 mx-auto w-full bg-slate-100/70 md:w-[90%]">
+    <header className="sticky top-0 z-50 mx-auto w-full bg-white bg-opacity-40 md:w-[90%]">
       <Navbar
-        onMenuOpenChange={setIsMenuOpen}
+        isMenuOpen={isMenuOpen}
+        onMenuOpenChange={() => setIsMenuOpen(!isMenuOpen)}
         maxWidth="full"
         height={"8rem"}
         isBlurred={true}
       >
-        <NavbarContent>
+        <NavbarContent justify="start">
           <NavbarMenuToggle
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            className="mr-16 sm:hidden"
+            className="sm:hidden"
           />
 
-          <NavbarBrand>
-            <Link href="/" aria-current="page">
-              <div className="flex flex-col items-center justify-center gap-3">
-                <HeaderLogo size="4em" textColor="text-red-400" />
-                <h1 className="text-lg font-semibold uppercase text-inherit">
-                  Witness Club
-                </h1>
-              </div>
+          <NavbarBrand className="w-full">
+            <Link
+              href="/"
+              aria-current="page"
+              className="flex translate-x-[37%] flex-col items-center justify-center gap-2 md:translate-x-0"
+            >
+              <HeaderLogo size="4em" textColor="text-red-400" />
+
+              <h1 className="text-center text-lg font-semibold uppercase text-inherit">
+                Witness Club
+              </h1>
             </Link>
           </NavbarBrand>
         </NavbarContent>
 
-        <NavbarContent className="hidden gap-4 sm:flex" justify="center">
+        <NavbarContent className="hidden flex-1 gap-4 sm:flex" justify="center">
           <NavbarItem
             isActive={pathname === "/"}
             as={Link}
@@ -116,7 +133,7 @@ const TopNav = ({ user }: Props) => {
 
         <NavbarMenu>
           {menuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
+            <NavbarMenuItem key={`${item}-${index}`} className="py-5">
               <Link
                 color={
                   index === 2
@@ -125,10 +142,16 @@ const TopNav = ({ user }: Props) => {
                       ? "danger"
                       : "foreground"
                 }
-                className="w-full"
-                href="#"
+                className={`${item.href === pathname ? "text-gray-950/70" : "text-gray-800/30"} flex w-full items-center justify-start gap-3 text-sm hover:text-gray-950/80`}
+                href={item.href}
+                onClick={() => setIsMenuOpen(false)}
               >
-                {item}
+                <span className="rounded-full border-[0.3px] border-black bg-red-500 p-2 text-center text-white hover:border-white">
+                  {item.icon}
+                </span>
+                <span className="link-underline link-underline-black text-center font-semibold uppercase">
+                  {item.name}
+                </span>
               </Link>
             </NavbarMenuItem>
           ))}

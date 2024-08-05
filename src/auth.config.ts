@@ -17,7 +17,7 @@ export default {
           if (!user || !(await compare(password, user.passwordHash))) {
             return null;
           }
-          console.log(user);
+
           return { ...user, name: user.username };
         }
         return null;

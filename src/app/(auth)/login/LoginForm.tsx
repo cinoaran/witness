@@ -28,12 +28,10 @@ const LoginForm = () => {
   const onSubmit = async (data: LoginSchema) => {
     const result = await signInUser(data);
     if (result.status === "success") {
-      console.log("success", result);
       router.push("/members");
       router.refresh();
     } else {
       setError("root.serverError", { message: result.error as string });
-      console.log(result.error);
     }
   };
 

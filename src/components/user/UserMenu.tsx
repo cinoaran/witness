@@ -1,4 +1,4 @@
-import { signOut } from "@/auth";
+import { signOutUser } from "@/app/actions/authActions";
 import {
   NavbarContent,
   Dropdown,
@@ -47,7 +47,7 @@ const UserMenu = ({
             name={name || "Username"}
             size="lg"
             fallback={<MdOutlineNoPhotography size={24} />}
-            src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+            src={image}
           />
         </DropdownTrigger>
         <DropdownMenu
@@ -75,7 +75,7 @@ const UserMenu = ({
           <DropdownItem as={"div"} textValue="Logout button" className="mt-3">
             <Button
               color="danger"
-              onClick={() => signOut()}
+              onClick={async () => signOutUser()}
               size="sm"
               fullWidth={true}
             >

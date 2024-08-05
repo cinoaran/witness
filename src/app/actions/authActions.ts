@@ -7,7 +7,7 @@ import { ActionResult } from "@/types";
 import { User } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { AuthError } from "next-auth";
-import { signIn } from "@/auth";
+import { signIn, signOut } from "@/auth";
 
 export async function signInUser(
   data: LoginSchema,
@@ -31,7 +31,7 @@ export async function signInUser(
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
-          /* case "CallbackRouteError": */
+        case "CallbackRouteError":
           return { status: "error", error: "Invalid credentials" };
         default:
           return { status: "error", error: "Something went wrong" };
@@ -41,6 +41,11 @@ export async function signInUser(
     }
   }
 }
+
+export async function signOutUser() {
+  return signOut({ redirectTo: "/" });
+}
+
 export async function registerUser(
   data: RegisterSchema,
 ): Promise<ActionResult<User>> {

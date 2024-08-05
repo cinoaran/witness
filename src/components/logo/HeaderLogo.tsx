@@ -7,12 +7,7 @@ const HeaderLogo = ({
   size: string;
   textColor: string;
 }) => {
-  return (
-    <GiAngelWings
-      size={size}
-      className={`text-shadow-sm text-center ${textColor}`}
-    />
-  );
+  return <GiAngelWings size={size} className={`text-shadow-sm ${textColor}`} />;
 };
 
 export default HeaderLogo;
