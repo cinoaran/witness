@@ -1,3 +1,5 @@
+"use client";
+
 import { signOutUser } from "@/app/actions/authActions";
 import {
   NavbarContent,
@@ -10,12 +12,13 @@ import {
   Badge,
 } from "@nextui-org/react";
 import Link from "next/link";
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { FaUserEdit } from "react-icons/fa";
 import { MdOutlineNoPhotography } from "react-icons/md";
 
 interface UserMenuProps {
   pathname: string;
+  setIsMenuOpen: Dispatch<SetStateAction<boolean>>;
   userProfile: {
     email: string;
     image?: string;
@@ -27,6 +30,7 @@ interface UserMenuProps {
 const UserMenu = ({
   userProfile: { email, image, name },
   pathname,
+  setIsMenuOpen,
 }: UserMenuProps) => {
   return (
     <NavbarContent as="div" justify="end" className="relative">
@@ -42,12 +46,13 @@ const UserMenu = ({
           <Avatar
             isBordered
             as="button"
-            className="ring-red-300 transition-transform"
+            className="cursor-pointer ring-red-300 transition-transform"
             color="secondary"
             name={name || "Username"}
             size="lg"
             fallback={<MdOutlineNoPhotography size={24} />}
             src={image}
+            onClick={() => setIsMenuOpen(false)}
           />
         </DropdownTrigger>
         <DropdownMenu

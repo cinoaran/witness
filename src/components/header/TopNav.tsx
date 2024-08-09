@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { signOutUser } from "../../app/actions/authActions";
 import {
   Navbar,
   NavbarBrand,
@@ -8,7 +9,6 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
-  Button,
 } from "@nextui-org/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -16,8 +16,9 @@ import HeaderLogo from "../logo/HeaderLogo";
 import UserMenu from "../user/UserMenu";
 import UserAuthLinks from "../user/UserAuthLinks";
 import { Session } from "next-auth";
+import { useRouter } from "next/navigation";
 import { MdOutlineHome } from "react-icons/md";
-import { FaList, FaUsers } from "react-icons/fa";
+import { FaList, FaUserAltSlash, FaUsers } from "react-icons/fa";
 import { BsChatRightDots } from "react-icons/bs";
 
 type Props = {
@@ -26,6 +27,7 @@ type Props = {
 
 const TopNav = ({ user }: Props) => {
   const pathname = usePathname();
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuItems = [
     {
@@ -44,11 +46,18 @@ const TopNav = ({ user }: Props) => {
       icon: <FaList size={18} />,
     },
     {
-      name: "Chats",
-      href: "/chats",
+      name: "Messages",
+      href: "/messages",
       icon: <BsChatRightDots size={18} />,
     },
   ];
+
+  const handleLogOut = async () => {
+    const logOutUser = await signOutUser();
+    setIsMenuOpen(false);
+    return logOutUser;
+  };
+
   return (
     <header className="sticky top-0 z-50 mx-auto w-full bg-white bg-opacity-40 md:w-[90%]">
       <Navbar
@@ -120,6 +129,7 @@ const TopNav = ({ user }: Props) => {
         {user ? (
           <UserMenu
             pathname={pathname}
+            setIsMenuOpen={setIsMenuOpen}
             userProfile={{
               email: user.email || "",
               image: user.image || "",
@@ -128,13 +138,14 @@ const TopNav = ({ user }: Props) => {
             }}
           />
         ) : (
-          <UserAuthLinks pathname={pathname} />
+          <UserAuthLinks pathname={pathname} setIsMenuOpen={setIsMenuOpen} />
         )}
 
         <NavbarMenu>
-          {menuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`} className="py-5">
+          <NavbarMenuItem>
+            {menuItems.map((item, index) => (
               <Link
+                key={`${item}-${index}`}
                 color={
                   index === 2
                     ? "primary"
@@ -142,19 +153,32 @@ const TopNav = ({ user }: Props) => {
                       ? "danger"
                       : "foreground"
                 }
-                className={`${item.href === pathname ? "text-gray-950/70" : "text-gray-800/30"} flex w-full items-center justify-start gap-3 text-sm hover:text-gray-950/80`}
+                className={`${item.href === pathname ? "text-gray-950/70" : "text-gray-800/30"} flex w-full items-center justify-start gap-2 py-2 text-sm hover:text-gray-950/80`}
                 href={item.href}
                 onClick={() => setIsMenuOpen(false)}
               >
-                <span className="rounded-full border-[0.3px] border-black bg-red-500 p-2 text-center text-white hover:border-white">
+                <span className="rounded-full border-[0.3px] border-white bg-red-500 p-2 text-center text-white hover:border-red-700">
                   {item.icon}
                 </span>
                 <span className="link-underline link-underline-black text-center font-semibold uppercase">
                   {item.name}
                 </span>
               </Link>
-            </NavbarMenuItem>
-          ))}
+            ))}
+            {user && (
+              <div
+                className="flex w-full cursor-pointer items-center justify-start gap-2 py-2 text-sm text-gray-800/30 hover:text-gray-950/80"
+                onClick={() => handleLogOut()}
+              >
+                <span className="rounded-full border-[0.3px] border-white bg-red-500 p-2 text-center text-white hover:border-red-700">
+                  <FaUserAltSlash size={18} />
+                </span>
+                <span className="link-underline link-underline-black text-center font-semibold uppercase">
+                  Log out
+                </span>
+              </div>
+            )}
+          </NavbarMenuItem>
         </NavbarMenu>
       </Navbar>
     </header>

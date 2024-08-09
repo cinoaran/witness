@@ -36,16 +36,16 @@ const LoginForm = () => {
   };
 
   return (
-    <Card>
+    <Card className="mx-auto max-w-7xl">
       <CardBody className="p-0">
         <div className="flex flex-col items-start justify-center md:flex-row">
-          <div className="flex w-full flex-1 flex-col items-center justify-center gap-10 bg-slate-100 p-10">
-            <h1 className="text-shadow-sm text-[4em] font-bold text-red-400">
+          <div className="flex w-full flex-grow flex-col items-center justify-center gap-4 bg-slate-100 py-5">
+            <h1 className="text-shadow-sm md:text[4em] text-[3em] font-bold text-red-400">
               Login
             </h1>
             <HeaderLogo size="14em" textColor="text-red-400" />
-            <div className="mt-10 flex items-center gap-5">
-              <span>Don't have an account?</span>
+            <div className="flex items-center gap-5 px-2 py-5">
+              <span className="md:text-md text-sm">Don't have an account?</span>
               <Button
                 as={Link}
                 className="bg-slate-950 text-white"
@@ -55,8 +55,8 @@ const LoginForm = () => {
               </Button>
             </div>
           </div>
-          <div className="w-full flex-1 p-10">
-            <h2 className="text-shadow-sm my-10 text-xl">
+          <div className="w-full p-6">
+            <h2 className="text-shadow-sm my-8 text-wrap text-center text-xl">
               Please enter your credentials to login!
             </h2>
             <form
@@ -102,11 +102,11 @@ const LoginForm = () => {
                 )}
               </div>
 
-              <div className="w-full pt-10">
+              <div className="w-full py-3">
                 <Button
                   isLoading={isSubmitting}
                   type="submit"
-                  className="text-md w-full bg-slate-950 p-7 text-white"
+                  className="md:text-md w-full bg-slate-950 p-6 text-sm text-white"
                   isDisabled={!isValid}
                 >
                   {isValid ? "Login" : "Please provide all required fields"}

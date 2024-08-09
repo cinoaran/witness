@@ -16,7 +16,6 @@ export const getMembers = async () => {
       },
     });
   } catch (error) {
-    throw new Error("Testing stage gone wrong. Baddly");
     console.log(error);
   }
 };

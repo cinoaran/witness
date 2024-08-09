@@ -46,15 +46,15 @@ const RegisterForm = () => {
   };
 
   return (
-    <Card className="w-full">
+    <Card className="mx-auto max-w-7xl">
       <CardBody className="flex items-center p-0">
         <div className="flex w-full flex-col items-start justify-center md:flex-row">
-          <div className="flex w-full flex-col items-center justify-center gap-20 bg-slate-100 py-12">
+          <div className="flex min-h-[auto] w-full flex-col items-center justify-center gap-14 bg-slate-100 py-4">
             <h1 className="text-shadow-sm md:text[4em] text-[3em] font-bold text-red-400">
               Register
             </h1>
             <HeaderLogo size="14em" textColor="text-red-400" />
-            <div className="mt-10 flex items-center justify-center gap-5 px-2">
+            <div className="flex items-center justify-center gap-5 px-2 py-12">
               <span className="md:text-md text-sm">
                 Already have an account?
               </span>
@@ -68,12 +68,12 @@ const RegisterForm = () => {
             </div>
           </div>
           <div className="w-full px-6">
-            <h2 className="text-shadow-sm my-14 text-wrap text-center text-xl">
+            <h2 className="text-shadow-sm text-wrap py-9 text-center text-xl">
               Please enter your credentials to register!
             </h2>
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col items-center justify-center space-y-8"
+              className="flex flex-col items-center justify-center space-y-6"
             >
               <div className="relative w-full">
                 <Input
@@ -142,10 +142,10 @@ const RegisterForm = () => {
                   />
                 )}
               </div>
-              <div className="w-full pb-10">
+              <div className="w-full py-7">
                 <Button
                   type="submit"
-                  className="text-md w-full bg-slate-950 p-7 text-white"
+                  className="md:text-md w-full bg-slate-950 py-6 text-sm text-white"
                   isDisabled={!isValid}
                   isLoading={isSubmitting}
                 >

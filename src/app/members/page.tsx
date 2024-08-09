@@ -37,6 +37,7 @@ const MembersPage = async () => {
                   src="/images/himmel-lila.jpg"
                   width={180}
                   height={120}
+                  priority
                 />
               </Link>
               <CardFooter className="absolute bottom-0 z-10 border-t-1 border-default-600 bg-blue-950/80">
