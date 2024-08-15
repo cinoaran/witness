@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@nextui-org/react";
 import { Member } from "@prisma/client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -11,7 +10,6 @@ import {
   MdOutlineChatBubbleOutline,
   MdOutlineNoPhotography,
 } from "react-icons/md";
-import { signOutUser } from "../actions/authActions";
 
 type Props = {
   member: Member;

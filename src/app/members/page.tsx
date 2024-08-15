@@ -4,11 +4,15 @@ import { Card, CardHeader, CardFooter, Button } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import LikeButton from "@/components/actionButtons/LikeButton";
+import { fetchCurrentUserLikeIds } from "../actions/likeActions";
 
 const MembersPage = async () => {
   const members = await getMembers();
 
   if (!members) return notFound();
+
+  const likeIds = await fetchCurrentUserLikeIds();
 
   return (
     <section>
@@ -21,11 +25,21 @@ const MembersPage = async () => {
               className="col-span-2 row-span-2 h-[300px] w-full"
               key={member?.userId}
             >
-              <CardHeader className="text-shadow absolute top-0 z-10 flex-col items-start bg-blue-950/80 text-white">
-                <p className="text-tiny font-bold uppercase">
-                  Your day your way
-                </p>
-                <h4 className="text-xl font-medium">{member?.username}</h4>
+              <CardHeader className="flex items-center justify-between bg-blue-950/80 text-white">
+                <div className="flex flex-col items-start">
+                  <p className="text-tiny font-bold uppercase">
+                    Your day your way
+                  </p>
+                  <h4 className="text-xl font-medium">{member?.username}</h4>
+                </div>
+                <div>
+                  <div className="z-50 flex items-center">
+                    <LikeButton
+                      targetId={member.userId}
+                      hasLiked={likeIds.includes(member.userId) ? true : false}
+                    />
+                  </div>
+                </div>
               </CardHeader>
               <Link
                 href={`/members/${member.userId}`}
@@ -33,7 +47,7 @@ const MembersPage = async () => {
               >
                 <Image
                   alt="Relaxing app background"
-                  className="object-fit z-0 h-full w-full"
+                  className="object-fit relative z-0 h-full w-full"
                   src="/images/himmel-lila.jpg"
                   width={180}
                   height={120}
