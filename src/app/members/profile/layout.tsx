@@ -2,13 +2,6 @@ import { getMemberByUserId } from "@/app/actions/membersActions";
 import { notFound } from "next/navigation";
 import React, { ReactNode } from "react";
 import MemberSidebar from "../MemberNavbar";
-import { FaRegImages } from "react-icons/fa";
-import {
-  MdOutlineArrowBack,
-  MdOutlineChatBubbleOutline,
-  MdOutlineNoPhotography,
-} from "react-icons/md";
-
 import {
   Card,
   CardHeader,
@@ -16,21 +9,20 @@ import {
   Image,
   CardBody,
 } from "@nextui-org/react";
+import { getAuthUserId } from "@/app/actions/authActions";
+import { MdOutlineArrowBack, MdOutlineNoPhotography } from "react-icons/md";
+import { FaUserEdit } from "react-icons/fa";
 
-const Layout = async ({
-  children,
-  params,
-}: {
-  children: ReactNode;
-  params: { userId: string };
-}) => {
-  const member = await getMemberByUserId(params.userId);
+const Layout = async ({ children }: { children: ReactNode }) => {
+  const userAuthId = await getAuthUserId();
+
+  const member = await getMemberByUserId(userAuthId);
 
   if (!member) return notFound();
 
   const { username, image, userId, city, country } = member || {};
 
-  const basePath = `/members/${member.userId}`;
+  const basePath = `/members/profile`;
 
   const navLinks = [
     {
@@ -39,19 +31,14 @@ const Layout = async ({
       icon: <MdOutlineArrowBack size={18} />,
     },
     {
-      name: "Profile",
-      href: `${basePath}`,
-      icon: <FaRegImages size={18} />,
+      name: "Edit",
+      href: `${basePath}/edit`,
+      icon: <FaUserEdit size={18} />,
     },
     {
       name: "Photos",
       href: `${basePath}/photos`,
       icon: <MdOutlineNoPhotography size={18} />,
-    },
-    {
-      name: "Chats",
-      href: `${basePath}/chats`,
-      icon: <MdOutlineChatBubbleOutline size={18} />,
     },
   ];
 

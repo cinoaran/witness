@@ -5,7 +5,7 @@ import { Member } from "@prisma/client";
 import React, { useTransition } from "react";
 import { Key } from "@react-types/shared";
 import LikeButton from "@/components/actionButtons/LikeButton";
-import Loading from "@/components/loading/loading";
+import Loading from "@/components/loading/Loading";
 
 type Props = {
   members: Member[];

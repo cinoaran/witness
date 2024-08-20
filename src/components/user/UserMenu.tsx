@@ -70,7 +70,7 @@ const UserMenu = ({
           </DropdownItem>
           <DropdownItem as={"div"} textValue="Edit profile link">
             <Link
-              href="/members/edit"
+              href="/members/profile/edit"
               className="flex items-center justify-center gap-4"
             >
               <FaUserEdit size={20} />

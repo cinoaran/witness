@@ -9,6 +9,7 @@ import { RegisterSchema, registerSchema } from "@/lib/schemas/registerSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerUser } from "@/app/actions/authActions";
 import Toast from "@/components/toasts/Toast";
+import { handleFomServerErrors } from "@/lib/util";
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,18 +31,7 @@ const RegisterForm = () => {
     if (result.status === "success") {
       router.push("/login");
     } else {
-      if (Array.isArray(result.error)) {
-        result.error.forEach((e) => {
-          const fieldName = e.path.join(".") as
-            | "email"
-            | "username"
-            | "password"
-            | "confirmPassword";
-          setError(fieldName, { message: e.message });
-        });
-      } else {
-        setError("root.serverError", { message: result.error });
-      }
+      handleFomServerErrors(result, setError);
     }
   };
 
