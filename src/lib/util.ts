@@ -6,7 +6,7 @@ export function calculateAge(dob: Date) {
   return differenceInYears(new Date(), dob);
 }
 
-export function handleFomServerErrors<TFieldValues extends FieldValues>(
+export function handleFormServerErrors<TFieldValues extends FieldValues>(
   errorResponse: { error: string | ZodIssue[] },
   setError: UseFormSetError<TFieldValues>,
 ) {
@@ -18,4 +18,16 @@ export function handleFomServerErrors<TFieldValues extends FieldValues>(
   } else {
     setError("root.serverError", { message: errorResponse.error });
   }
+}
+
+export function transformImageUrl(imageUrl?: string | null) {
+  if (!imageUrl) return null;
+
+  if (!imageUrl.includes("cloudinary")) return imageUrl;
+
+  const uploadIndex = imageUrl.indexOf("/upload") + "/upload".length;
+
+  const transformation = "/c_fill,w_300,h_300,g_faces";
+
+  return `${imageUrl.slice(0, uploadIndex)}${transformation}${imageUrl.slice(uploadIndex)}`;
 }

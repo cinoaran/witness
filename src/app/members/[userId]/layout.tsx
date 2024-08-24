@@ -16,6 +16,7 @@ import {
   Image,
   CardBody,
 } from "@nextui-org/react";
+import { transformImageUrl } from "@/lib/util";
 
 const Layout = async ({
   children,
@@ -66,9 +67,9 @@ const Layout = async ({
             <Image
               alt="Breathing app icon"
               className="right-1 rounded-full border-[0.3px] border-red-400 bg-black object-contain p-1"
-              src={image || "/images/user.png"}
-              width={70}
-              height={70}
+              src={transformImageUrl(image) || "/images/user.png"}
+              width={90}
+              height={90}
             />
             <div className="hidden flex-col md:flex">
               <h4 className="text-md font-medium uppercase">{username}</h4>

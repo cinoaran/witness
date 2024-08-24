@@ -1,6 +1,8 @@
 "use client";
 
 import { signOutUser } from "@/app/actions/authActions";
+import { transformImageUrl } from "@/lib/util";
+
 import {
   NavbarContent,
   Dropdown,
@@ -10,7 +12,9 @@ import {
   DropdownItem,
   Button,
   Badge,
+  Image,
 } from "@nextui-org/react";
+import { getCldImageUrl } from "next-cloudinary";
 import Link from "next/link";
 import React, { Dispatch, SetStateAction } from "react";
 import { FaUserEdit } from "react-icons/fa";
@@ -46,12 +50,12 @@ const UserMenu = ({
           <Avatar
             isBordered
             as="button"
-            className="cursor-pointer ring-red-300 transition-transform"
+            className="aspect-square cursor-pointer object-center ring-red-300 transition-transform"
             color="secondary"
             name={name || "Username"}
             size="lg"
             fallback={<MdOutlineNoPhotography size={24} />}
-            src={image}
+            src={transformImageUrl(image) ?? ""}
             onClick={() => setIsMenuOpen(false)}
           />
         </DropdownTrigger>
@@ -66,7 +70,7 @@ const UserMenu = ({
             className="pointer-events-none"
           >
             <p className="font-semibold uppercase">Signed in as</p>
-            <p className="font-normal">{email}</p>
+            <p className="font-normal">{name}</p>
           </DropdownItem>
           <DropdownItem as={"div"} textValue="Edit profile link">
             <Link

@@ -5,18 +5,21 @@ import {
   fetchLikedMembers,
 } from "../actions/likeActions";
 import { notFound } from "next/navigation";
-import { Card, Divider, Image } from "@nextui-org/react";
-import { auth } from "@/auth";
+import { Image } from "@nextui-org/react";
+import { getAuthUserId } from "../actions/authActions";
+import { getMemberByUserId } from "../actions/membersActions";
 
 const ListsPage = async ({
   searchParams,
 }: {
   searchParams: { type: string };
 }) => {
-  const session = await auth();
+  const userId = await getAuthUserId();
+  const member = await getMemberByUserId(userId);
+
   const members = await fetchLikedMembers(searchParams.type);
 
-  if (!members) return notFound();
+  if (!members || !member) return notFound();
   const likeIds = await fetchCurrentUserLikeIds();
 
   return (
@@ -25,8 +28,8 @@ const ListsPage = async ({
         <div className="flex w-full items-center justify-center rounded-lg bg-blue-950/50 py-5 text-white">
           <Image
             alt="Breathing app icon"
-            className="rounded-full bg-white object-contain p-1"
-            src={(session && session?.user?.image) || "/images/user.png"}
+            className="right-1 aspect-square rounded-full border-[0.3px] border-red-400 bg-black object-cover p-1"
+            src={(member.image as string) || "/images/user.png"}
             width={190}
             height={190}
           />

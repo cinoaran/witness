@@ -12,6 +12,7 @@ import {
 import { getAuthUserId } from "@/app/actions/authActions";
 import { MdOutlineArrowBack, MdOutlineNoPhotography } from "react-icons/md";
 import { FaUserEdit } from "react-icons/fa";
+import { transformImageUrl } from "@/lib/util";
 
 const Layout = async ({ children }: { children: ReactNode }) => {
   const userAuthId = await getAuthUserId();
@@ -52,10 +53,10 @@ const Layout = async ({ children }: { children: ReactNode }) => {
           <div className="ml-3 flex items-center gap-3 text-white">
             <Image
               alt="Breathing app icon"
-              className="right-1 rounded-full border-[0.3px] border-red-400 bg-black object-contain p-1"
-              src={image || "/images/user.png"}
-              width={70}
-              height={70}
+              className="right-1 aspect-square rounded-full border-[0.3px] border-red-400 bg-black object-cover p-1"
+              src={transformImageUrl(image) || "/images/user.png"}
+              width={60}
+              height={60}
             />
             <div className="hidden flex-col md:flex">
               <h4 className="text-md font-medium uppercase">{username}</h4>

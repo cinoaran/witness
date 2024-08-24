@@ -23,9 +23,11 @@ import { BsChatRightDots } from "react-icons/bs";
 
 type Props = {
   user: Session["user"];
+  userInfoName: string | null;
+  userInfoImage?: string | null;
 };
 
-const TopNav = ({ user }: Props) => {
+const TopNav = ({ user, userInfoName, userInfoImage }: Props) => {
   const pathname = usePathname();
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -132,8 +134,8 @@ const TopNav = ({ user }: Props) => {
             setIsMenuOpen={setIsMenuOpen}
             userProfile={{
               email: user.email || "",
-              image: user.image || "",
-              name: user.name || "",
+              image: userInfoImage || user.image || "",
+              name: userInfoName || user.name || "",
               id: user.id || "",
             }}
           />

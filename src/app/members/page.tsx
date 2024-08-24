@@ -6,6 +6,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import LikeButton from "@/components/actionButtons/LikeButton";
 import { fetchCurrentUserLikeIds } from "../actions/likeActions";
+import { transformImageUrl } from "@/lib/util";
 
 const MembersPage = async () => {
   const members = await getMembers();
@@ -59,7 +60,7 @@ const MembersPage = async () => {
                   <Image
                     alt="Breathing app icon"
                     className="h-11 w-10 rounded-full bg-red-500/50 object-contain p-1"
-                    src={member?.image || "/images/user.png"}
+                    src={transformImageUrl(member?.image) || "/images/user.png"}
                     width={90}
                     height={90}
                   />

@@ -11,7 +11,7 @@ import { Member } from "@prisma/client";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { handleFomServerErrors } from "@/lib/util";
+import { handleFormServerErrors } from "@/lib/util";
 
 type Props = {
   member: Member;
@@ -25,7 +25,7 @@ const EditForm = ({ member }: Props) => {
     handleSubmit,
     reset,
     setError,
-    formState: { isValid, isDirty, isSubmitting, isSubmitted, errors },
+    formState: { isValid, isDirty, isSubmitting, errors },
   } = useForm<MemberEditSchema>({
     resolver: zodResolver(memberEditSchema),
     mode: "onTouched",
@@ -43,14 +43,15 @@ const EditForm = ({ member }: Props) => {
   }, [member, reset]);
 
   const onSubmit = async (data: MemberEditSchema) => {
-    const result = await updateMemberProfile(data);
+    const nameUpdated = data.username !== member.username;
+    const result = await updateMemberProfile(data, nameUpdated);
 
     if (result.status === "success") {
       setEditSuccess(true);
       router.refresh();
       reset({ ...data });
     } else {
-      handleFomServerErrors(result, setError);
+      handleFormServerErrors(result, setError);
     }
   };
 
