@@ -8,6 +8,7 @@ import { notFound } from "next/navigation";
 import { Image } from "@nextui-org/react";
 import { getAuthUserId } from "../actions/authActions";
 import { getMemberByUserId } from "../actions/membersActions";
+import { transformImageUrl } from "@/lib/util";
 
 const ListsPage = async ({
   searchParams,
@@ -29,7 +30,9 @@ const ListsPage = async ({
           <Image
             alt="Breathing app icon"
             className="right-1 aspect-square rounded-full border-[0.3px] border-red-400 bg-black object-cover p-1"
-            src={(member.image as string) || "/images/user.png"}
+            src={
+              (transformImageUrl(member.image) as string) || "/images/user.png"
+            }
             width={190}
             height={190}
           />

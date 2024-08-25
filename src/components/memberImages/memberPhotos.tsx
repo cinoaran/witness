@@ -39,15 +39,18 @@ const MemberPhotos = ({ photos, editting, mainImageUrl }: Props) => {
     setLoading({ isLoading: false, type: "", id: "" });
   };
   return (
-    <div className="grid-col-5 grid gap-3 p-5">
+    <div className="z-10 grid grid-cols-1 place-items-center gap-5 px-5 py-10 text-white md:grid-cols-3 lg:grid-cols-4">
       {photos &&
         photos.map((photo) => (
-          <div key={photo.id} className="relative w-[max-content]">
+          <div
+            key={photo.id}
+            className="relative w-[max-content] rounded-lg bg-gray-100/20 p-5"
+          >
             {editting && (
               <>
                 <div
                   onClick={() => onSetMain(photo)}
-                  className="absolute left-3 top-3 z-50"
+                  className="absolute left-1 top-1 z-50 rounded-full bg-white/50 p-1 hover:bg-white"
                 >
                   <StarButton
                     loading={
@@ -61,7 +64,7 @@ const MemberPhotos = ({ photos, editting, mainImageUrl }: Props) => {
 
                 <div
                   onClick={() => onDelete(photo)}
-                  className="absolute right-3 top-3 z-50"
+                  className="absolute right-1 top-1 z-50 rounded-full bg-white/50 p-1 hover:bg-white"
                 >
                   <DeleteButton
                     loading={

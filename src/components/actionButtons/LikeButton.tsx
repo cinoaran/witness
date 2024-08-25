@@ -25,7 +25,11 @@ const LikeButton = ({ targetId, hasLiked }: Props) => {
       className="relative z-50 flex cursor-pointer items-center justify-center transition hover:opacity-30"
       onClick={toggleLike}
     >
-      <AiOutlineHeart size={31} className="absolute fill-white" />
+      <AiOutlineHeart
+        size={40}
+        className="absolute rounded-full bg-slate-950/20 fill-white p-1"
+      />
+
       <AiFillHeart
         size={26}
         className={hasLiked ? "animate-pulse fill-red-700" : "fill-white"}

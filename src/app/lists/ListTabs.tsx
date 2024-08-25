@@ -6,6 +6,7 @@ import React, { useTransition } from "react";
 import { Key } from "@react-types/shared";
 import LikeButton from "@/components/actionButtons/LikeButton";
 import Loading from "@/components/loading/Loading";
+import { transformImageUrl } from "@/lib/util";
 
 type Props = {
   members: Member[];
@@ -55,10 +56,10 @@ const ListTabs = ({ members, likedIds }: Props) => {
             ) : (
               <>
                 {members.length > 0 ? (
-                  <div className="mt-10 grid grid-cols-1 place-items-center gap-5 md:grid-cols-5 lg:grid-cols-8">
+                  <div className="z-10 grid grid-cols-1 place-items-center gap-5 px-5 py-10 text-white md:grid-cols-4 lg:grid-cols-6">
                     {members.map((member) => (
                       <div className="relative" key={member?.id}>
-                        <span className="absolute right-2 top-2 flex items-center rounded-full">
+                        <span className="absolute right-4 top-4 flex items-center rounded-full">
                           <LikeButton
                             targetId={member.userId}
                             hasLiked={
@@ -68,10 +69,13 @@ const ListTabs = ({ members, likedIds }: Props) => {
                         </span>
                         <Image
                           alt="Breathing app icon"
-                          className="w-[auto] rounded-full bg-white object-contain p-1"
-                          src={member?.image || "/images/user.png"}
-                          width="160px"
-                          height="160px"
+                          className="rounded-full bg-white object-cover p-1"
+                          src={
+                            transformImageUrl(member?.image) ||
+                            "/images/user.png"
+                          }
+                          width="200px"
+                          height="200px"
                         />
                       </div>
                     ))}
