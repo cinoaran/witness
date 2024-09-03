@@ -9,7 +9,7 @@ import { RegisterSchema, registerSchema } from "@/lib/schemas/registerSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerUser } from "@/app/actions/authActions";
 import Toast from "@/components/toasts/Toast";
-import { handleFomServerErrors } from "@/lib/util";
+import { handleFormServerErrors } from "@/lib/util";
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,7 +31,7 @@ const RegisterForm = () => {
     if (result.status === "success") {
       router.push("/login");
     } else {
-      handleFomServerErrors(result, setError);
+      handleFormServerErrors(result, setError);
     }
   };
 

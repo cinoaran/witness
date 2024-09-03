@@ -16,7 +16,7 @@ const MembersPage = async () => {
   const likeIds = await fetchCurrentUserLikeIds();
 
   return (
-    <section>
+    <section className="mx-auto w-full md:w-[90%]">
       {members && members.length > 0 && (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
           {members.map((member) => (
@@ -59,10 +59,10 @@ const MembersPage = async () => {
                 <div className="relative flex flex-grow items-center justify-around gap-5">
                   <Image
                     alt="Breathing app icon"
-                    className="h-11 w-10 rounded-full bg-red-500/50 object-contain p-1"
+                    className="rounded-full bg-red-500/50 object-contain p-1"
                     src={transformImageUrl(member?.image) || "/images/user.png"}
-                    width={90}
-                    height={90}
+                    width={55}
+                    height={55}
                   />
                   <div className="flex flex-col">
                     <p className="text-tiny text-white/60">Breathing App</p>

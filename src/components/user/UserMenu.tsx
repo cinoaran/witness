@@ -12,9 +12,8 @@ import {
   DropdownItem,
   Button,
   Badge,
-  Image,
 } from "@nextui-org/react";
-import { getCldImageUrl } from "next-cloudinary";
+
 import Link from "next/link";
 import React, { Dispatch, SetStateAction } from "react";
 import { FaUserEdit } from "react-icons/fa";
@@ -41,9 +40,9 @@ const UserMenu = ({
       <Badge
         as="div"
         content=""
-        className="z-100 absolute left-[45px] top-[-24px] h-5 w-5 animate-pulse rounded-full bg-red-500"
+        className="z-100 absolute left-[47px] top-[-24px] h-4 w-4 animate-pulse rounded-full bg-red-500"
       >
-        <span className="sr-only h-5 w-5 rounded-full bg-red-500"></span>
+        <span className="sr-only h-4 w-4 rounded-full"></span>
       </Badge>
       <Dropdown placement="bottom-end">
         <DropdownTrigger>

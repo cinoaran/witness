@@ -1,9 +1,21 @@
 import React from "react";
+import { getMessagesByContainer } from "../actions/messageActions";
+import MessageTable from "./MessageTable";
+import { MessageDto } from "@/types";
 
-const MessagesPage = () => {
+const MessagesPage = async ({
+  searchParams,
+}: {
+  searchParams: { container: string };
+}) => {
+  const messages = await getMessagesByContainer(searchParams.container);
+
   return (
     <section>
-      <h2>MessagesPage</h2>
+      <MessageTable
+        messages={messages as MessageDto[]}
+        container={searchParams.container}
+      />
     </section>
   );
 };

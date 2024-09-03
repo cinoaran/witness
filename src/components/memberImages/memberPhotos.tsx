@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import DeleteButton from "../Buttons/DeleteButton";
-import StarButton from "../Buttons/StarButton";
+import DeleteButton from "../actionButtons/DeleteButton";
+import StarButton from "../actionButtons/StarButton";
 import MemberImage from "./memberImage";
 import { Photo } from "@prisma/client";
 import { useRouter } from "next/navigation";

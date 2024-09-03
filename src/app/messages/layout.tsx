@@ -1,14 +1,7 @@
 import { getMemberByUserId } from "@/app/actions/membersActions";
 import { notFound } from "next/navigation";
 import React, { ReactNode } from "react";
-import MemberSidebar from "../MemberNavbar";
-import { FaRegImages } from "react-icons/fa";
-import {
-  MdOutlineArrowBack,
-  MdOutlineChatBubbleOutline,
-  MdOutlineNoPhotography,
-} from "react-icons/md";
-
+import MemberSidebar from "./MemberNavbar";
 import {
   Card,
   CardHeader,
@@ -16,43 +9,36 @@ import {
   Image,
   CardBody,
 } from "@nextui-org/react";
+import { getAuthUserId } from "@/app/actions/authActions";
 import { transformImageUrl } from "@/lib/util";
 
-const Layout = async ({
-  children,
-  params,
-}: {
-  children: ReactNode;
-  params: { userId: string };
-}) => {
-  const member = await getMemberByUserId(params.userId);
+import { BsArrowDownCircle, BsArrowUpCircle } from "react-icons/bs";
+
+const Layout = async ({ children }: { children: ReactNode }) => {
+  const userAuthId = await getAuthUserId();
+
+  const member = await getMemberByUserId(userAuthId);
 
   if (!member) return notFound();
 
   const { username, image, userId, city, country } = member || {};
 
-  const basePath = `/members/${member.userId}`;
+  const basePath = `/messages`;
 
   const navLinks = [
     {
-      name: "Back",
-      href: `/members`,
-      icon: <MdOutlineArrowBack size={18} />,
+      key: "inbox",
+      chip: true,
+      name: "Inbox",
+      href: `${basePath}?container=inbox`,
+      icon: <BsArrowDownCircle size={18} />,
     },
     {
-      name: "Profile",
-      href: `${basePath}`,
-      icon: <FaRegImages size={18} />,
-    },
-    {
-      name: "Photos",
-      href: `${basePath}/photos`,
-      icon: <MdOutlineNoPhotography size={18} />,
-    },
-    {
-      name: "Chat",
-      href: `${basePath}/chat`,
-      icon: <MdOutlineChatBubbleOutline size={18} />,
+      key: "outbox",
+      chip: true,
+      name: "Outbox",
+      href: `${basePath}?container=outbox`,
+      icon: <BsArrowUpCircle size={18} />,
     },
   ];
 
@@ -66,10 +52,10 @@ const Layout = async ({
           <div className="ml-3 flex items-center gap-3 text-white">
             <Image
               alt="Breathing app icon"
-              className="right-1 rounded-full border-[0.3px] border-red-400 bg-black object-contain p-1"
+              className="right-1 aspect-square rounded-full border-[0.3px] border-red-400 bg-black object-cover p-1"
               src={transformImageUrl(image) || "/images/user.png"}
-              width={90}
-              height={90}
+              width={60}
+              height={60}
             />
             <div className="hidden flex-col md:flex">
               <h4 className="text-md font-medium uppercase">{username}</h4>
