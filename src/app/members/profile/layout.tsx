@@ -44,7 +44,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
   ];
 
   return (
-    <section>
+    <section className="py-24">
       <Card
         key={userId}
         className="z-0 mx-auto min-h-[42vh] max-w-7xl bg-[url('/images/himmel-lila.jpg')] bg-cover bg-no-repeat"

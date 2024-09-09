@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Provider>
           <Header />
-          <main className="relative mx-auto block min-h-[100vh] bg-slate-50/90 sm:w-full md:w-[90%]">
+          <main className="relative mx-auto min-h-[90vh] bg-slate-50/90 sm:w-[95%] md:w-[90%]">
             {children}
           </main>
         </Provider>

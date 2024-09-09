@@ -24,7 +24,7 @@ const ListsPage = async ({
   const likeIds = await fetchCurrentUserLikeIds();
 
   return (
-    <section>
+    <section className="py-24">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-0 rounded-lg bg-[url('/images/himmel-lila.jpg')] bg-cover bg-no-repeat">
         <div className="flex w-full items-center justify-center rounded-lg bg-blue-950/50 py-5 text-white">
           <Image

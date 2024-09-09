@@ -6,7 +6,6 @@ import {
   Avatar,
   Badge,
   Button,
-  getKeyValue,
   Table,
   TableBody,
   TableCell,
@@ -15,16 +14,15 @@ import {
   TableRow,
 } from "@nextui-org/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { Key, useCallback, useState } from "react";
+import React, { Key, useCallback, useEffect, useRef, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { deleteMessage } from "../actions/messageActions";
 
 type Props = {
   messages: MessageDto[];
-  container: string;
 };
 
-const MessageTable = ({ messages, container }: Props) => {
+const MessageTable = ({ messages }: Props) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const isOutbox = searchParams.get("container") === "outbox";
@@ -92,7 +90,7 @@ const MessageTable = ({ messages, container }: Props) => {
             </div>
           );
         case "text":
-          return <div>{cellValue}</div>;
+          return <div>{cellValue && truncateWords(cellValue, 90)}</div>;
 
         default:
           return (
@@ -102,7 +100,7 @@ const MessageTable = ({ messages, container }: Props) => {
               isLoading={isDeleting.id === item.id && isDeleting.loading}
               onClick={() => handleDeleteMessage(item)}
             >
-              <MdDelete size={24} />
+              <MdDelete size={24} className="text-red-500" />
             </Button>
           );
       }
@@ -111,33 +109,28 @@ const MessageTable = ({ messages, container }: Props) => {
   );
 
   return (
-    <div className="mx-auto w-full md:w-[90%]">
-      <Table
-        aria-label="Table with messages"
-        selectionMode="single"
-        onRowAction={(key: string) => handleRowSelect(key)}
-      >
-        <TableHeader>
-          {columns.map((column) => (
-            <TableColumn key={column.key}>{column.label}</TableColumn>
-          ))}
-        </TableHeader>
-        <TableBody
-          items={messages}
-          emptyContent="No messages for this container"
-        >
-          {(item) => (
-            <TableRow key={item.id} className="cursor-pointer">
-              {(columnKey) => (
-                <TableCell className="bg-red-50 text-gray-900">
-                  {renderCell(item, columnKey as keyof MessageDto)}
-                </TableCell>
-              )}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-    </div>
+    <Table
+      aria-label="Table with messages"
+      selectionMode="single"
+      onRowAction={(key: string) => handleRowSelect(key)}
+    >
+      <TableHeader>
+        {columns.map((column) => (
+          <TableColumn key={column.key}>{column.label}</TableColumn>
+        ))}
+      </TableHeader>
+      <TableBody items={messages} emptyContent="No messages for this container">
+        {(item) => (
+          <TableRow key={item.id} className="cursor-pointer">
+            {(columnKey) => (
+              <TableCell className="text-gray-900">
+                {renderCell(item, columnKey as keyof MessageDto)}
+              </TableCell>
+            )}
+          </TableRow>
+        )}
+      </TableBody>
+    </Table>
   );
 };
 

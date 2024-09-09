@@ -74,8 +74,8 @@ const ListTabs = ({ members, likedIds }: Props) => {
                             transformImageUrl(member?.image) ||
                             "/images/user.png"
                           }
-                          width="200px"
-                          height="200px"
+                          width="150px"
+                          height="150px"
                         />
                       </div>
                     ))}

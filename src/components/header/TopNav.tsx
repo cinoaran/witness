@@ -16,7 +16,6 @@ import HeaderLogo from "../logo/HeaderLogo";
 import UserMenu from "../user/UserMenu";
 import UserAuthLinks from "../user/UserAuthLinks";
 import { Session } from "next-auth";
-import { useRouter } from "next/navigation";
 import { MdOutlineHome } from "react-icons/md";
 import { FaList, FaUserAltSlash, FaUsers } from "react-icons/fa";
 import { BsChatRightDots } from "react-icons/bs";
@@ -29,7 +28,6 @@ type Props = {
 
 const TopNav = ({ user, userInfoName, userInfoImage }: Props) => {
   const pathname = usePathname();
-  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuItems = [
     {
@@ -95,6 +93,7 @@ const TopNav = ({ user, userInfoName, userInfoImage }: Props) => {
             isActive={pathname === "/"}
             as={Link}
             href="/"
+            scroll={false}
             aria-current={pathname === "/" ? "page" : false}
             className="link-underline link-underline-black text-black"
           >
@@ -104,6 +103,7 @@ const TopNav = ({ user, userInfoName, userInfoImage }: Props) => {
             isActive={pathname === "/members"}
             as={Link}
             href="/members"
+            scroll={false}
             aria-current={pathname === "/members" ? "page" : false}
             className="link-underline link-underline-black text-black"
           >
@@ -113,6 +113,7 @@ const TopNav = ({ user, userInfoName, userInfoImage }: Props) => {
             isActive={pathname === "/lists"}
             as={Link}
             href="/lists"
+            scroll={false}
             aria-current={pathname === "/lists" ? "page" : false}
             className="link-underline link-underline-black text-black"
           >
@@ -122,6 +123,7 @@ const TopNav = ({ user, userInfoName, userInfoImage }: Props) => {
             isActive={pathname === "/messages"}
             as={Link}
             href="/messages"
+            scroll={false}
             aria-current={pathname === "/messages" ? "page" : false}
             className="link-underline link-underline-black text-black"
           >
@@ -157,6 +159,7 @@ const TopNav = ({ user, userInfoName, userInfoImage }: Props) => {
                 }
                 className={`${item.href === pathname ? "text-gray-950/70" : "text-gray-800/30"} flex w-full items-center justify-start gap-2 py-2 text-sm hover:text-gray-950/80`}
                 href={item.href}
+                scroll={false}
                 onClick={() => setIsMenuOpen(false)}
               >
                 <span className="rounded-full border-[0.3px] border-white bg-red-500 p-2 text-center text-white hover:border-red-700">

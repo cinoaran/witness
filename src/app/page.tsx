@@ -1,10 +1,8 @@
 import { auth } from "@/auth";
 
-export default async function Home() {
-  const session = await auth();
-  console.log(session);
+export default async function Home() { 
   return (
-    <section>
+    <section className="text-gray-900">
       <h2>Home Page</h2>
     </section>
   );

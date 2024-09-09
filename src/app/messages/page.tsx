@@ -12,10 +12,7 @@ const MessagesPage = async ({
 
   return (
     <section>
-      <MessageTable
-        messages={messages as MessageDto[]}
-        container={searchParams.container}
-      />
+      <MessageTable messages={messages as MessageDto[]} />
     </section>
   );
 };

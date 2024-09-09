@@ -57,10 +57,10 @@ const Layout = async ({
   ];
 
   return (
-    <section>
+    <section className="py-24">
       <Card
         key={userId}
-        className="z-0 mx-auto min-h-[42vh] max-w-7xl bg-[url('/images/himmel-lila.jpg')] bg-cover bg-no-repeat"
+        className="z-0 mx-auto min-h-[42vh] w-[95%] max-w-7xl bg-[url('/images/himmel-lila.jpg')] bg-cover bg-no-repeat"
       >
         <CardHeader className="flex items-center justify-between gap-5 bg-gray-950/70 text-white">
           <div className="ml-3 flex items-center gap-3 text-white">
