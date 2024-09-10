@@ -16,7 +16,7 @@ const MembersPage = async () => {
   const likeIds = await fetchCurrentUserLikeIds();
 
   return (
-    <section className="mx-auto w-full md:w-[90%]">
+    <section className="py-12 md:py-24">
       {members && members.length > 0 && (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
           {members.map((member) => (

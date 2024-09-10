@@ -3,7 +3,7 @@ import RegisterForm from "./RegisterForm";
 
 const RegisterPage = () => {
   return (
-    <section>
+    <section className="py-12 md:py-24">
       <RegisterForm />
     </section>
   );

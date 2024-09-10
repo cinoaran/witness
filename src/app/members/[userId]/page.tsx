@@ -9,7 +9,7 @@ const MemberPage = async ({ params }: { params: { userId: string } }) => {
   const { description } = memberByUserId || {};
 
   return (
-    <div className="text-md z-10 rounded-md bg-white/30 p-5 font-semibold text-gray-950/80">
+    <div className="text-md z-10 rounded-md bg-white/30 p-4">
       {description && (
         <div className="flex flex-col gap-5">
           <h2 className="text-xl">About Me</h2>

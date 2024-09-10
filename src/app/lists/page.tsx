@@ -24,17 +24,17 @@ const ListsPage = async ({
   const likeIds = await fetchCurrentUserLikeIds();
 
   return (
-    <section className="py-24">
+    <section className="py-12 md:py-24">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-0 rounded-lg bg-[url('/images/himmel-lila.jpg')] bg-cover bg-no-repeat">
-        <div className="flex w-full items-center justify-center rounded-lg bg-blue-950/50 py-5 text-white">
+        <div className="flex w-full items-center justify-center rounded-tl-md rounded-tr-md bg-blue-950/50 py-5 text-white">
           <Image
             alt="Breathing app icon"
             className="right-1 aspect-square rounded-full border-[0.3px] border-red-400 bg-black object-cover p-1"
             src={
               (transformImageUrl(member.image) as string) || "/images/user.png"
             }
-            width={190}
-            height={190}
+            width={160}
+            height={160}
           />
         </div>
         <ListTabs members={members} likedIds={likeIds} />

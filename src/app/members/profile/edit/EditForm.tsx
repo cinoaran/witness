@@ -56,7 +56,7 @@ const EditForm = ({ member }: Props) => {
   };
 
   return (
-    <div className="space-y-5 rounded-lg bg-white/90 p-4">
+    <div className="space-y-5 rounded-lg bg-white/30 p-4">
       <h2 className="text-2xl">
         {editSuccess
           ? "Your profile update was successfully"
