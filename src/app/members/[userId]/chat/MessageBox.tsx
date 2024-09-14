@@ -4,11 +4,12 @@ import { MessageDto } from "@/types";
 import React from "react";
 import clsx from "clsx";
 import { Avatar, Divider } from "@nextui-org/react";
-import { transformImageUrl } from "@/lib/util";
+import { transformImageUrl, timeAgo } from "@/lib/util";
 
 type Props = {
   message: MessageDto;
   currentUserId: string;
+  chatId: string;
 };
 
 const MessageBox = ({ message, currentUserId }: Props) => {
@@ -34,19 +35,14 @@ const MessageBox = ({ message, currentUserId }: Props) => {
 
   const renderMessageHeader = () => (
     <>
-      <div
-        /* className={clsx("mb-1 flex animate-drip-expand justify-between", {
-          "": isCurrentUserSender,
-        })} */
-        className="mb-1 flex animate-drip-expand justify-between"
-      >
+      <div className="mb-1 flex animate-drip-expand justify-between">
         {message.dateRead && message.recipientId !== currentUserId ? (
-          <div className="flex flex-col items-start justify-start md:flex-row md:items-center">
+          <div className="flex flex-col items-start justify-start md:flex-row md:items-center md:gap-5">
             <span className="text-sm font-semibold uppercase text-white">
               {message.senderName}
             </span>
             <span className="text-italic text-left text-xs text-white">
-              ( Read 4 min ago)
+              {timeAgo(message.dateRead)}
             </span>
           </div>
         ) : (
